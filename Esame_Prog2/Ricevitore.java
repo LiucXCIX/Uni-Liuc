@@ -108,6 +108,7 @@ public class Ricevitore {
         return s.toString();
     } 
 
+    @Override
     public boolean equals (Object o) {
         if (o == this) return true;
         if (!(o instanceof Ricevitore)) return false;
