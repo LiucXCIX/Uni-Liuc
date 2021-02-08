@@ -9,7 +9,7 @@ public class test {
         while (s.hasNextLine()) {
             ric.aggiungiPacchetto(s.nextLine());
         }
-        System.out.println(ric.toString());
+        //System.out.println(ric.toString());
         s.close();
     }
 }
