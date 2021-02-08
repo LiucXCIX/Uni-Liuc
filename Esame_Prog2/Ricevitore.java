@@ -108,6 +108,13 @@ public class Ricevitore {
         return s.toString();
     } 
 
+    public boolean equals (Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Ricevitore)) return false;
+        Ricevitore ob = (Ricevitore) o;
+        return ((this.ricevitore.equals(ob.ricevitore)) && (this.messaggi.equals(ob.messaggi)));
+    }
+
     private boolean repOk() {
         Set<Integer> key = messaggi.keySet();
         for (int k : key) {
