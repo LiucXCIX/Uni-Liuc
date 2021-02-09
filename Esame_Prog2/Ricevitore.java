@@ -24,7 +24,7 @@ public class Ricevitore {
 /* AF FUN: AF(ricevitore) = {id_1 -> {*id_1*    *tot*    *prog*    *t1*, *id_1*    *tot*    *prog + 1*    *t2*, ...,  *id_1*    *tot*    *prog + tot - 1*    *t_fin*}, id_2 -> ..., ..., id_fin -> ...};
         AF(messaggi) = {id_1 -> *t1* + *t2* + *t3* + ... + *t_fin*, id_2 -> *txt* + ..., ..., id_k -> ...}  
  * REP INV: Un elemento dovrà essere inserito in messaggi solo se la ricezione dei pacchetti è terminata, quindi dovrò aver ottenuto tutti i pacchetti necessari a ricomporre il messaggio. Inoltre in ricevitore dovranno essere associati gli id con le specifiche istanze di pacchetto con lo stesso id
- * AF INV: Il messaggio deve essere completo e i messaggi devono avere lo stesso id 
+ * AF INV: Il messaggio deve essere completo e i messaggi completi devono essere formati da pacchetti con lo stesso id 
  */
 
 // COSTRUTTORE
@@ -116,14 +116,22 @@ public class Ricevitore {
         return ((this.ricevitore.equals(ob.ricevitore)) && (this.messaggi.equals(ob.messaggi)));
     }
 
+    /**
+     *  * REP INV: Un elemento dovrà essere inserito in messaggi solo se la ricezione dei pacchetti è terminata, 
+     *             quindi dovrò aver ottenuto tutti i pacchetti necessari a ricomporre il messaggio. Inoltre in ricevitore 
+     *             dovranno essere associati gli id con le specifiche istanze di pacchetto con lo stesso id.
+     *             Le keys non devono assumere valori nulli. // sarà così perché i valori che inseriamo saranno sempre interi!
+     * @return
+     */
     private boolean repOk() {
         Set<Integer> key = messaggi.keySet();
-        for (int k : key) {
+        for (Integer k : key) {
             List<Pacchetto> p = ricevitore.get(k);
             if (p.size() < p.get(0).totale()) return false;
         }
         key = ricevitore.keySet();
-        for (int k : key) {
+        for (Integer k : key) {
+            if (k == null) return false;
             List<Pacchetto> p = ricevitore.get(k);
             for (Pacchetto pa : p) {
                 if (k != pa.id()) return false;
