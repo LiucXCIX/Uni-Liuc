@@ -1,4 +1,4 @@
-package Esame_Prog2;
+package Esame_Prog2.Ricevitore_messaggi_pacchetti;
 /**OVERVIEW:
  * La classe Pacchetto implementa un'entità di tipo pacchetto definita da una quadrupla = {id (id del messaggio), totale (quanti pacchetti servono per completare il messaggio), progressivo (il numero progressivo dello specifico pacchetto all'interno del messaggio) e testo (contenente il testo del pacchetto)}
  * Essa sarà un'istanza immutabile. 
