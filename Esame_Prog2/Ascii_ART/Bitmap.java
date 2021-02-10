@@ -18,6 +18,7 @@ public class Bitmap {
 //CAMPI
     /**
      * bitmap rappresenterà la matrice di b * n bit necessari a rappresentare la nostra Bitmap
+     * Ogni bit è rappresentato da una casella della matrice, se quella specifica casella sarà 'true' lo stato del bit sarà 'acceso', viceversa sarà 'spento'
      */
     private boolean[][] bitmap;
 
@@ -25,6 +26,12 @@ public class Bitmap {
      * b e h saranno i valori rispettivamente della base e della altezza della bitmap
      */
     private int b, h;
+
+    /*
+     *   REP INV: b e h devono essere la base e l'altezza della bitmap
+     *   ABS FUN: AF(bitmap[i][j]) (se bitmap[i][j] == true) -> '*'; (altrimenti) -> '.' [per ogni i e j tra 0 e b/h compresi] 
+     *   ABS INV: la matrice deve avere dimensione b*h 
+     */
 
     /**
      * Post-condizioni: restituisce un'istanza di bitmap se b e h sono maggiori di 0, 
@@ -66,6 +73,10 @@ public class Bitmap {
         bitmap[x][y] = false;
     }
 
+    /**
+     * Effetti collaterali: potrebbe modificare this se in essa sono presenti bit nello stato 'acceso'
+     * Post-condizioni: tutti i bit di Bitmap verranno modificati per entrare nello stato 'spento'
+     */
     public void turnOffAll(){
         for (int i = 0; i < b; i++) {
             for (int j = 0; j < h; j++) {
@@ -74,6 +85,10 @@ public class Bitmap {
         }
     }
 
+    /**
+     * Effetti collaterali: modifica this
+     * Post-condizioni: tutti i bit di Bitmap vedranno invertito il loro stato
+     */
     public void bitmapInversion() {
         for (int i = 0; i < b; i++) {
             for (int j = 0; j < h; j++) {
@@ -85,6 +100,17 @@ public class Bitmap {
         }
     }
 
+    /**
+     * Post-condizoni: se i + b o j + h sono maggiori rispettivamente di this.b o this.h allora solleverà un'eccezione di tipo IllegalArgumentException, 
+     *                 altrimenti restituirà una partizione di this.
+     * @param b
+     * @param h
+     * @param i
+     * @param j
+     * @return
+     * n.d.r.: il metodo rappresentato in questo modo è SCORRETTISSIMO perché espone la rappresentazione interna di Bitmap, sarebbe stato meglio restituire una matrice di caratteri che rappresentava
+     *         una partizione della rappresentazione della Bitmap, quindi nel sopracitato formato bit "true" -> *, bit "false" -> .
+     */
     public boolean[][] patrizione(int b, int h, int i, int j){
         if ((i + b >= this.b) || (j + h >= this.h)) throw new IllegalArgumentException();
         boolean[][] partizione = new boolean[i][j];
@@ -96,6 +122,12 @@ public class Bitmap {
         return partizione;
     }
 
+    /**
+     * Post-condizoni: restituisce true se lo specifico punto è presente nella matrice, altrimenti restituisce false
+     * @param x 
+     * @param y
+     * @return
+     */
     public boolean accettableCoord(int x, int y) {
         if (((x < 0) || (x >= this.b)) || ((y < 0) || (y >= this.h))) return false;
         return true;
