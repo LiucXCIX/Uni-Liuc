@@ -1,9 +1,9 @@
-package Esame_Prog2.Ascii_ART;
+package Esame_Prog2.Snake;
 
 //OVERVIEW
 /**
  * La classe Coordinate permette la rappresentazione di un punto bidimensionale descritto tramite una componente orizzontale (x) e una verticale (y)
- * Ogni istanza di quessto tipo è immutabile. 
+ * Ogni istanza di questo tipo è immutabile.
  */
 public final class Coordinate {
     /**
@@ -14,7 +14,7 @@ public final class Coordinate {
     /*
     *   REP INV: nessuno, ogni valore intero è accettato
     *   ABS FUN: AF(x, y) -> (x, y)
-    *   ABS INV: nessuno, ogni ascissa o ordinata è accettata sulla coordinata
+    *   ABS INV: nessuno, ogni ascissa o ordinata è una rappresentazione corretta di un'entità coordinata
     */
 
     /**
@@ -51,5 +51,18 @@ public final class Coordinate {
      */
     public int yCoord() {
         return this.y;
+    }
+
+    @Override
+    public int hashCode(){
+      return 31 * Integer.hashCode(this.x) + Integer.hashCode(this.y);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+      if (obj == this) return true;
+      if (!(obj instanceof Coordinate)) return false;
+      Coordinate o = (Coordinate) obj;
+      return ((this.x == o.x) && (this.y == o.y));
     }
 }
